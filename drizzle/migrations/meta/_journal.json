@@ -1,0 +1,20 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1790080774257,
+      "tag": "0000_create_scheme_finder_schema",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790080995384,
+      "tag": "0001_seed_government_schemes",
+      "breakpoints": true
+    }
+  ]
+}
