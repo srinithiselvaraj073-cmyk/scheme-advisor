@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Bookmark, LayoutDashboard, Shield, UserCog } from "lucide-react";
 
-export function AccountNav({ isAdmin }: { isAdmin?: boolean }) {
+export function AccountNav({ isAdmin }: { isAdmin?: boolean | undefined }) {
   const items = [
     { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { to: "/saved", label: "Saved Schemes", icon: Bookmark },
