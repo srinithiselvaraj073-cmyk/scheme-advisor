@@ -1,0 +1,112 @@
+export const CATEGORIES = [
+  "Agriculture",
+  "Farmers",
+  "Education",
+  "Scholarships",
+  "Health",
+  "Women",
+  "Child Welfare",
+  "Employment",
+  "Housing",
+  "Finance",
+  "Social Welfare",
+  "Skill Development",
+  "Youth",
+  "Senior Citizens",
+  "Disability",
+  "Entrepreneurship",
+  "MSME",
+  "Rural Development",
+] as const;
+
+export const INDIAN_STATES = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Delhi",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Puducherry",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+  "Jammu and Kashmir",
+  "Ladakh",
+  "Andaman and Nicobar Islands",
+  "Chandigarh",
+  "Dadra and Nagar Haveli and Daman and Diu",
+  "Lakshadweep",
+] as const;
+
+export const BENEFICIARY_TYPES = [
+  "Farmer",
+  "Student",
+  "Woman",
+  "Girl Child",
+  "Child",
+  "Youth",
+  "Worker",
+  "Entrepreneur",
+  "Artisan",
+  "Street Vendor",
+  "Senior Citizen",
+  "Person with Disability",
+  "Family",
+  "SC",
+  "ST",
+  "Unorganised Sector",
+] as const;
+
+export const GENDERS = ["Female", "Male", "Transgender"] as const;
+
+export const SOCIAL_CATEGORIES = ["General", "OBC", "SC", "ST", "EWS", "Minority"] as const;
+
+export const OCCUPATIONS = [
+  "Farmer",
+  "Agricultural Labourer",
+  "Student",
+  "Private Employee",
+  "Government Employee",
+  "Self-employed",
+  "Street Vendor",
+  "Daily Wage Worker",
+  "Artisan",
+  "Homemaker",
+  "Unemployed",
+  "Retired",
+] as const;
+
+export const EDUCATION_LEVELS = [
+  "No formal education",
+  "Below Class 8",
+  "Class 8",
+  "Class 10",
+  "Class 12",
+  "ITI / Diploma",
+  "Undergraduate",
+  "Postgraduate",
+  "Doctorate",
+] as const;
+
+export const DISCLAIMER =
+  "Sri Scheme Finder is an informational platform, not an official government website. Verify the latest scheme information on the relevant official government portal before applying.";
