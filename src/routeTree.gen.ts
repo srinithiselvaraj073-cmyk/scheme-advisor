@@ -10,16 +10,24 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EligibilityRouteImport } from './routes/eligibility'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
+import { Route as AuthenticatedSavedRouteImport } from './routes/_authenticated/saved'
 import { Route as SchemesIndexRouteImport } from './routes/schemes.index'
 import { Route as SchemesSlugRouteImport } from './routes/schemes.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -42,6 +50,21 @@ const EligibilityRoute = EligibilityRouteImport.update({
   path: '/eligibility',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSavedRoute = AuthenticatedSavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const SchemesIndexRoute = SchemesIndexRouteImport.update({
   id: '/schemes/',
   path: '/schemes/',
@@ -59,6 +82,9 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/eligibility': typeof EligibilityRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/saved': typeof AuthenticatedSavedRoute
   '/schemes/$slug': typeof SchemesSlugRoute
   '/schemes/': typeof SchemesIndexRoute
 }
@@ -68,16 +94,23 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/eligibility': typeof EligibilityRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/saved': typeof AuthenticatedSavedRoute
   '/schemes/$slug': typeof SchemesSlugRoute
   '/schemes': typeof SchemesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/eligibility': typeof EligibilityRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/saved': typeof AuthenticatedSavedRoute
   '/schemes/$slug': typeof SchemesSlugRoute
   '/schemes/': typeof SchemesIndexRoute
 }
@@ -89,6 +122,9 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/eligibility'
+    | '/dashboard'
+    | '/profile'
+    | '/saved'
     | '/schemes/$slug'
     | '/schemes/'
   fileRoutesByTo: FileRoutesByTo
@@ -98,21 +134,29 @@ export interface FileRouteTypes {
     | '/auth'
     | '/contact'
     | '/eligibility'
+    | '/dashboard'
+    | '/profile'
+    | '/saved'
     | '/schemes/$slug'
     | '/schemes'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/about'
     | '/auth'
     | '/contact'
     | '/eligibility'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/profile'
+    | '/_authenticated/saved'
     | '/schemes/$slug'
     | '/schemes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
@@ -128,6 +172,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -158,6 +209,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EligibilityRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/saved': {
+      id: '/_authenticated/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof AuthenticatedSavedRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/schemes/': {
       id: '/schemes/'
       path: '/schemes'
@@ -175,8 +247,24 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedSavedRoute: typeof AuthenticatedSavedRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedSavedRoute: AuthenticatedSavedRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
