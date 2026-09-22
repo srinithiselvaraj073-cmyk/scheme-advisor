@@ -88,9 +88,14 @@ export const adminSaveScheme = createServerFn({ method: "POST" })
     const { id, ...payload } = data;
     const row = {
       ...payload,
-      state: payload.level === "central" ? null : payload.state,
+      state: payload.level === "central" ? null : (payload.state ?? null),
+      department: payload.department ?? null,
+      official_source: payload.official_source ?? null,
+      official_website: payload.official_website ?? null,
+      official_application_url: payload.official_application_url ?? null,
+      last_verified_date: payload.last_verified_date ?? null,
       eligibility_rules: payload.eligibility_rules as never,
-    };
+    } as never;
 
     if (id) {
       const { data: updated, error } = await context.supabase
