@@ -39,9 +39,9 @@ already has, twice). No service-role or admin database key is required — admin
 role changes run through a database function that verifies the signed-in user
 is an admin.
 
-Optionally add `NITRO_PRESET=vercel` to pin the build target. Vercel is normally
-detected automatically, so this is only a fallback if the build produces
-Cloudflare output instead of `.vercel/output`.
+The app detects Vercel during the build and produces Vercel's own serverless
+output on its own, so no build-target setting is needed. `NITRO_PRESET=vercel`
+is only a manual fallback if a build somewhere reports Cloudflare output.
 
 ## 4. Deploy, then fix the sign-in redirect URLs
 
