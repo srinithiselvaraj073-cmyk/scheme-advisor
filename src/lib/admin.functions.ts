@@ -165,20 +165,14 @@ export const adminSetUserRole = createServerFn({ method: "POST" })
   .inputValidator((data: { userId: string; role: "user" | "admin"; grant: boolean }) => data)
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    if (data.grant) {
-      const { error } = await supabaseAdmin
-        .from("user_roles")
-        .upsert({ user_id: data.userId, role: data.role }, { onConflict: "user_id,role" });
-      if (error) throw new Error(error.message);
-    } else {
-      const { error } = await supabaseAdmin
-        .from("user_roles")
-        .delete()
-        .eq("user_id", data.userId)
-        .eq("role", data.role);
-      if (error) throw new Error(error.message);
-    }
+    // Role changes run through a security-definer database function that checks
+    // the caller is an admin, so no privileged service key is needed anywhere.
+    const { error } = await context.supabase.rpc("admin_set_user_role", {
+      _user_id: data.userId,
+      _role: data.role,
+      _grant: data.grant,
+    });
+    if (error) throw new Error(error.message);
     return { ok: true };
   });
 

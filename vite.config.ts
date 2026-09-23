@@ -6,7 +6,13 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+// Vercel sets VERCEL at build time; NITRO_PRESET=vercel is a manual override.
+// Everywhere else (including Lovable hosting) the default target is untouched.
+const targetingVercel =
+  Boolean(process.env["VERCEL"]) || process.env["NITRO_PRESET"] === "vercel";
+
 export default defineConfig({
+  ...(targetingVercel ? { nitro: { preset: "vercel" } } : {}),
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this

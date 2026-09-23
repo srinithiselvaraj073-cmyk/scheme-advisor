@@ -15,6 +15,20 @@
       "when": 1790080995384,
       "tag": "0001_seed_government_schemes",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790125895040,
+      "tag": "0002_0002_admin_set_user_role_rpc",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1790126021973,
+      "tag": "0003_0003_lock_down_admin_role_function",
+      "breakpoints": true
     }
   ]
 }
